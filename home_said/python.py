@@ -94,5 +94,5 @@ while True:
     p2.move_random_step(grid.width, grid.height)
     p3.move_random_step(grid.width, grid.height)
     grid.display()
-    time.sleep(0.1)
+    time.sleep(1)
     os.system('cls') 
