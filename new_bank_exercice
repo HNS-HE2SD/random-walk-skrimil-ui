@@ -1,0 +1,97 @@
+class client :
+    def init(self, CIN, Fname, Lname, tel=[]):
+        self.__Fname = Fname
+        self.__Lname = Lname
+        self.__CIN = CIN
+        self.__tel = tel
+
+    def get_tel(self):
+        return self.__tel
+    
+    def get_CIN(self):
+        return self.__CIN
+    
+    def get_Fname(self):
+        return self.__Fname
+    
+    def get_Lname(self):
+        return self.__Lname
+    
+    def tel(self, value):
+        if not value.isdigit():
+            raise ValueError("tel have digits")
+        if len(value)< 8:
+            raise ValueError("tel is very small")
+        self.__tel.append(value)
+
+    def display(self):
+        print(f"Person CIN: {self.CIN}, Name: {self.Fname} {self.Lname}, Telephone numbers: {', '.join(self.tel)}")
+
+class account :
+    __nextcode = 0
+    __nbaccount = 0
+    def __init__ (self , owner):
+        self.__owner = owner
+        self.balance = 0
+        self.__code = account.__nextcode
+        account.__nextcode +=1
+        account.__nbaccount +=1
+        self.transaction = []
+        self.__record("create" , 0 "account created")
+    
+    def get_owner(self):
+        return self.__owner
+    
+    def get_balance(self):
+        return self.__balance
+    
+    def get_code(self):
+        return self.__code
+    
+    def __record(self , optype , amount , note , other ):
+        entry = {
+        "type":optype,
+        "amount":amount,
+        "balance": self.__balance
+        "note": note,
+        "other":other,
+        }
+        self.__transaction.append(entry)
+
+    def credit (self , amount):
+        if amount <= 0:
+            raise ValueError (" amount most positive")
+        self.__balance += amount
+        self.__record("credit", amount ,"credit operation")
+        return True
+    
+    def debit (self , amount):
+        if amount <= 0 :
+            raise ValueError("amount must be positive")
+        if amount > self.__balance:
+            print("error : insufficient balance")
+            return False
+        self.__balance -= amount 
+        self.__record("debit" , amount , "debit operation")
+        return True
+    
+    def transfer (self , amount , account):
+        if not isinstance (account , Account):
+            raise ValueError ("target must be an account")
+        if amount <= 0:
+            raise ValueError ("amount most be positive")
+        if amount > self.__balance :
+            print ("error ; insufficient balance")
+            return False
+        self.__balance -= amount
+        self.__record("transfer _out", amount , "sent tonanother acoounr ", account.getcode())
+        account.__balance += amount
+        account.__record ("transfer_in", amount , "received fron anotheracount", self.getcode())
+        return True
+    
+    def display (self):
+        print(f"account code:{self.__code}")
+        print(f"owner: {self.__owner.getfirstname()}{self.__owner.getlastname()}")
+        print(f"balance:  {self.__balance} dinar")
+
+
